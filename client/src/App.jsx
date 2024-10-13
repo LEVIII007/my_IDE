@@ -41,13 +41,13 @@ function App() {
     setCode(selectedFileContent);
   }, [selectedFileContent]);
 
-  const getFileTree = async () => {
+  const getFileTree = async () => {                    // file struct
     const response = await fetch("http://localhost:9000/files");
     const result = await response.json();
     setFileTree(result.tree);
   };
 
-  const getFileContents = useCallback(async () => {
+  const getFileContents = useCallback(async () => { // whenever file content is changed, i will call this function
     if (!selectedFile) return;
     const response = await fetch(
       `http://localhost:9000/files/content?path=${selectedFile}`
@@ -56,7 +56,7 @@ function App() {
     setSelectedFileContent(result.content);
   }, [selectedFile]);
 
-  useEffect(() => {
+  useEffect(() => {                       // to se frontend content similar to backend content
     if (selectedFile) getFileContents();
   }, [getFileContents, selectedFile]);
 
